@@ -13,10 +13,26 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
+            $table->float('weight')->nullable();; //Vikt kg
+            $table->float('height')->nullable();; //Längd
+            $table->date('dob')->nullable();; //År, månad, dag, för att räkna ut ålder
+            $table->enum('training_level', ['beginner', 'intermediate', 'advanced'])->nullable();
+            $table->string("sport")->nullable(); 
+            $table->string('role')->default('user'); //user, admin
+            $table->string('push_token')->nullable(); //Exponent push token
+            $table->string('email_notifications')->default(1); //0 = off, 1 = on
+            $table->string('device_type')->nullable(); //ios, android
+            $table->string('external_auth_provider')->nullable(); //google, apple
+            $table->string('external_auth_id')->nullable(); //googles, apples ID
+            $table->string('profile_picture_url')->nullable(); //URL till profilbild, ANVÄNDS EJ, kan evt. användas i framtiden
+            $table->string('email_verification_code')->nullable(); //Kod som skickas till användarens email för att verifiera email
+            $table->string('password_reset_code')->nullable(); //Kod som skickas till användarens email för att återställa lösenord
+            $table->date('password_reset_code_created_at')->nullable(); //När lösenordsåterställningskoden skapades
             $table->rememberToken();
             $table->timestamps();
         });
