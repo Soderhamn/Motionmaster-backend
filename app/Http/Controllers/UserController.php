@@ -34,7 +34,7 @@ class UserController
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|max:128',
             'name' => 'required',
-            'device_type' => 'required',
+            'device' => 'required',
         ]);
 
         $name = $request->name;
@@ -55,7 +55,7 @@ class UserController
             'password' => $password,
             'role' => $role,
             'email_verification_code' => $randomCode,
-            'device_type' => $request->device_type,
+            'device_type' => $request->device,
         ]);
 
         //Try to send email verification code, plain text only
@@ -143,7 +143,7 @@ class UserController
         //Update user with logged in device type for statistics, if provided
         if($request->device)
         {
-            $user->device_type = $request->device_type;
+            $user->device_type = $request->device;
             $user->save();
         }
 
