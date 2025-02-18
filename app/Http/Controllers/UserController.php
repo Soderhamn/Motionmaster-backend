@@ -58,14 +58,17 @@ class UserController
 
         //Try to send email verification code, plain text only
 
-        $headers = [
+        /*$headers = [
             'Content-Type' => 'text/plain; charset=utf-8',
             'X-Mailer' => 'SC Mailer 1.0',
             'From' => Config::get('mail.from.address'),
-        ];
+        ];*/
         
         try {
-            mail($email, 'Välkommen till Appen - bekräfta din mailadress', 'Din bekräftelsekod är: ' . $randomCode . '. Ange denna kod i appen för att bekräfta din mailadress.', $headers);
+            //mail($email, 'Välkommen till Motionmaster - bekräfta din mailadress', 'Din bekräftelsekod är: ' . $randomCode . '. Ange denna kod i appen för att bekräfta din mailadress.', $headers);
+
+            //Send email with Laravel Mail
+            Mail::to($email)->send(new WelcomeMail($name, $email, $randomCode));
         } catch (\Exception $e) {
             //Ignore the error
         }
@@ -173,7 +176,7 @@ class UserController
             $users = User::all();
             $subject = $request->subject;
             $message = $request->message;
-            $txtMessage = $request->txtMessage;
+            //$txtMessage = $request->txtMessage;
 
             $headers = [
                 'Content-Type' => 'text/html charset=utf-8',
