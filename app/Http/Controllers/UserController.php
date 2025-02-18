@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Log;
 
 class UserController
 {
@@ -72,7 +73,8 @@ class UserController
             //Send email with Laravel Mail
             Mail::to($email)->send(new WelcomeMail($name, $email, $randomCode));
         } catch (\Exception $e) {
-            //Ignore the error
+            // Log the error message
+            \Log::error('Failed to send email: ' . $e->getMessage());
         }
 
         //Return the user in JSON format
