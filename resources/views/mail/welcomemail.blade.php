@@ -11,7 +11,7 @@
     <p>Hej {{ $name }},</p>
     <p>Välkommen till Motionmaster! Vi är glada att du har valt att bli medlem hos oss.</p>
     <p>För att komma igång behöver du bekräfta din e-postadress. Klicka på länken nedan för att slutföra registreringen:</p>
-    <p><a href="{{ $link }}">Bekräfta e-postadress</a></p>
+    <p><a href="{{ $confirmLink }}">Bekräfta e-postadress</a></p>
     <p>Om du inte kan klicka på länken kan du kopiera och klistra in den i din webbläsare.</p>
     <p>Om du inte har registrerat dig hos oss kan du ignorera detta meddelande.</p>
     <p>Med vänliga hälsningar,</p>

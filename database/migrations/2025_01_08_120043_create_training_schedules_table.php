@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title'); //Title of the schedule
             $table->string('description')->nullable(); //Description of the schedule
             $table->enum('status', ['active', 'completed', 'failed'])->default('active'); //Status of the schedule
-            $table->enum('sport', ['running', 'cycling', 'swimming', 'gym', 'soccer', 'basketball', 'other'])->default('other'); //Sport of the schedule
+            $table->enum('sport', ['running', 'cycling', 'swimming', 'gym', 'soccer', 'walking', 'crossfit', 'other'])->default('other'); //Sport of the schedule
             $table->date('start_date')->nullable(); //Start date of the schedule
             $table->date('end_date')->nullable(); //End date of the schedule
             $table->string('video_url')->nullable(); //URL to the video
