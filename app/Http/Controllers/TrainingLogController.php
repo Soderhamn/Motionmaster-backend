@@ -27,7 +27,7 @@ class TrainingLogController extends Controller
     {
         //Validate the request
         $request->validate([
-            'user_id' => 'required|integer',
+            'user_id' => 'nullable|integer',
             'date' => 'required|date',
             'duration' => 'nullable|integer',
             'training_schedule_id' => 'nullable|integer',
