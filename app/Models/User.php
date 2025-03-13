@@ -66,6 +66,26 @@ class User extends Authenticatable
         ];
     }
 
+    public function trainingGoals()
+    {
+        return $this->hasMany(TrainingGoal::class);
+    }
+
+    public function trainingSchedules()
+    {
+        return $this->hasMany(TrainingSchedule::class);
+    }
+
+    public function trainingLogs()
+    {
+        return $this->hasMany(TrainingLog::class);
+    }
+
+    public function logComments()
+    {
+        return $this->hasMany(LogComment::class);
+    }
+
     public function sendNotifications($data) {
         $userPushToken = $this->push_token;
         $userEmail = $this->email;

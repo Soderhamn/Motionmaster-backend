@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeMail;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,7 +13,7 @@ Route::get("/login", function () {
 });
 
 Route::get('/test-email', function () {
-    Mail::to('marcus.andersson@sandarnecreations.com')->send(new \App\Mail\WelcomeMail('Test User', 'test@example.com', '123456'));
+    Mail::to('marcus.andersson@sandarnecreations.com')->send(new WelcomeMail('Test User', 'test@example.com', '123456'));
     return 'Email sent!';
 });
 
