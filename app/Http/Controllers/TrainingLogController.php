@@ -13,10 +13,10 @@ class TrainingLogController extends Controller
     public function index()
     {
         // Admin can see all training logs, users can only see their own
-        if(auth()->user() &&  auth()->user()->role == "admin") {
-            return TrainingLog::all()->limit(1000); //Kan se de senaste 1000 loggarna
+        if(auth()->user() && auth()->user()->role == "admin") {
+            return TrainingLog::take(1000)->get(); //Kan se de senaste 1000 loggarna
         } else {
-            return TrainingLog::where('user_id', auth()->user()->id)->get()->limit(100); //Kan se de senaste 100 loggarna
+            return TrainingLog::where('user_id', auth()->user()->id)->take(100)->get(); //Kan se de senaste 100 loggarna
         }
     }
 
