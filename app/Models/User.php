@@ -41,6 +41,7 @@ class User extends Authenticatable
         'email_verification_code',
         'password_reset_code',
         'password_reset_code_created_at',
+        'premium_level',
     ];
 
     /**

@@ -21,11 +21,11 @@ return new class extends Migration
             $table->enum('sport', ['running', 'cycling', 'swimming', 'gym', 'soccer', 'walking', 'crossfit', 'other'])->default('other'); //Sport of the schedule
             $table->date('start_date')->nullable(); //Start date of the schedule
             $table->date('end_date')->nullable(); //End date of the schedule
-            $table->string('video_url')->nullable(); //URL to the video
             $table->enum('archived', ['yes', 'no'])->default('no'); //Archived schedule
             $table->enum('type', ['standard', 'template'])->default('standard'); //Type of schedule
             $table->foreignId('template_id')->nullable()->constrained('training_schedules')->onDelete('cascade'); //If this schedule is a copy of a template, this is the id of the template
             $table->integer('premium_level')->default(0); //Premium level of the schedule, 0 = free, 1 = premium level 1, 2 = premium level 2 etc.
+            $table->json('jsonData')->nullable(); //Dynamic JSON data for träningspass
             $table->timestamps();
         });
     }

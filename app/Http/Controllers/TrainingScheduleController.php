@@ -12,11 +12,17 @@ class TrainingScheduleController extends Controller
      */
     public function index()
     {
-        //Admin can see all training schedules, users can only see their own
+        //Admin can see all training schedules, users can only see their own AND templates
         if(auth()->user() &&  auth()->user()->role == "admin") {
             return TrainingSchedule::all();
         } else {
-            return TrainingSchedule::where('user_id', auth()->user()->id)->get();
+            //Get all training schedules for the authenticated user
+            //and all templates ()"type":"template" && user_id == null)
+            return TrainingSchedule::where('user_id', auth()->user()->id)
+                ->orWhere(function($query) {
+                    $query->where('type', 'template')
+                        ->whereNull('user_id');
+                })->get();
         }
     }
 

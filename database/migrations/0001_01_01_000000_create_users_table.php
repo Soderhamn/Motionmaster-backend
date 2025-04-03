@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('email_verification_code')->nullable(); //Kod som skickas till användarens email för att verifiera email
             $table->string('password_reset_code')->nullable(); //Kod som skickas till användarens email för att återställa lösenord
             $table->date('password_reset_code_created_at')->nullable(); //När lösenordsåterställningskoden skapades
+            $table->integer('premium_level')->default(0); //0 = free, 1 = premium level 1, 2 = premium level 2 etc.
             $table->rememberToken();
             $table->timestamps();
         });
