@@ -37,6 +37,10 @@ class TrainingLogController extends Controller
 
         // Admin can create training logs for all users, users can only create their own
         if(auth()->user() &&  auth()->user()->role == "admin") {
+            //If user_id is not set, set it to the authenticated user, otherwise use the user_id from the request
+            if(!$request->user_id) {
+                $request['user_id'] = auth()->user()->id;
+            }
             return TrainingLog::create($request->all());
         } else {
             $request['user_id'] = auth()->user()->id;
