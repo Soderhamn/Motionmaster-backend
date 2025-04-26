@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Training schedule routes
     Route::get("/trainingschedules", [TrainingScheduleController::class, 'index']); //Get all training schedules
-    Route::get("/trainingschedules/active", [TrainingScheduleController::class, 'getActiveTrainingSchedule']); //Get the active training schedule for the logged in user
+    Route::get("/getActiveSchedule", [TrainingScheduleController::class, 'getActiveTrainingSchedule']); //Get the active training schedule for the logged in user
     Route::get("/trainingschedules/{trainingSchedule}", [TrainingScheduleController::class, 'show']); //Get a specific training schedule
     Route::post("/trainingschedules", [TrainingScheduleController::class, 'store']); //Create a new training schedule
     //Create a training schedule from a template
