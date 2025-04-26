@@ -186,4 +186,18 @@ class TrainingScheduleController extends Controller
             }
         }
     }
+
+    public function getActiveTrainingSchedule(Request $request) //Get THE LATEST training schedule for the logged in user
+    {
+        $schedule = TrainingSchedule::where('user_id', auth()->user()->id)
+        ->where('status', 'active')
+        ->where('type', 'standard')
+        ->orderBy('id', 'desc')
+        ->first();
+
+    if (!$schedule) {
+        return response()->json(['message' => 'No active training schedule found'], 404);
+    }
+
+    return $schedule;    }
 }
