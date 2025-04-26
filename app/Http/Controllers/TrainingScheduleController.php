@@ -64,7 +64,7 @@ class TrainingScheduleController extends Controller
         $newSchedule->user_id = auth()->user()->id;
         $newSchedule->template_id = $template->id;
         $newSchedule->start_date = $request->input('start_date'); // Användarens valda startdatum
-        $newSchedule->save();
+        
 
         // Beräkna datum för passen baserat på start_date och jsonData
         $startDate = \Carbon\Carbon::parse($newSchedule->start_date);
@@ -92,6 +92,14 @@ class TrainingScheduleController extends Controller
             // Om jsonData inte är korrekt formaterad, returnera ett felmeddelande
             return response()->json(['error' => 'Invalid JSON data'], 400);
         }
+
+        // Behåll befintlig json-data och lägg till events
+        $existingData = $jsonData ?? [];
+        $existingData['events'] = $events;
+
+        // Spara uppdaterad jsonData
+        $newSchedule->jsonData = json_encode($existingData);
+        $newSchedule->save(); // Spara det nya schemat
 
         return response()->json([
             'schedule' => $newSchedule,
