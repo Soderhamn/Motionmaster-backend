@@ -69,21 +69,28 @@ class TrainingScheduleController extends Controller
         // Beräkna datum för passen baserat på start_date och jsonData
         $startDate = \Carbon\Carbon::parse($newSchedule->start_date);
         $events = [];
-        
-        foreach ($newSchedule->jsonData['weeks'] as $weekKey => $weekData) {
-            $weekOffset = (int) filter_var($weekKey, FILTER_SANITIZE_NUMBER_INT) - 1; // "week1" -> 0, "week2" -> 1
-            foreach ($weekData as $day => $sessions) {
-                $dayNumber = (int) $day; // Numeriskt dagvärde (0-6)
-                // Beräkna datum: startdatum + antal veckor + justera till rätt dag
-                $dayDate = $startDate->copy()->addWeeks($weekOffset)->addDays($dayNumber); // Justera för dag 0 = måndag
 
-                foreach ($sessions as $session) {
-                    $events[] = [
-                        'date' => $dayDate->toDateString(),
-                        'name' => $session['name'],
-                    ];
+        $jsonData = json_decode($newSchedule->jsonData, true); // Avkoda JSON
+        
+        if ($jsonData && isset($jsonData['weeks'])) {
+            foreach ($jsonData['weeks'] as $weekKey => $weekData) {
+            $weekOffset = (int) filter_var($weekKey, FILTER_SANITIZE_NUMBER_INT) - 1; // "week1" -> 0, "week2" -> 1
+                foreach ($weekData as $day => $sessions) {
+                    $dayNumber = (int) $day; // Numeriskt dagvärde (0-6)
+                    // Beräkna datum: startdatum + antal veckor + justera till rätt dag
+                    $dayDate = $startDate->copy()->addWeeks($weekOffset)->addDays($dayNumber); // Justera för dag 0 = måndag
+
+                    foreach ($sessions as $session) {
+                        $events[] = [
+                            'date' => $dayDate->toDateString(),
+                            'name' => $session['name'],
+                        ];
+                    }
                 }
             }
+        } else {
+            // Om jsonData inte är korrekt formaterad, returnera ett felmeddelande
+            return response()->json(['error' => 'Invalid JSON data'], 400);
         }
 
         return response()->json([
