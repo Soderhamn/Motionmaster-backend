@@ -63,4 +63,30 @@ Route::middleware('auth:sanctum')->group(function () {
     //Send email and push notifications to users
     Route::post("/sendemailnotifications", [UserController::class, 'sendEmailNotifications']); //Send email to ALL users
     Route::post("/sendpushnotifications", [UserController::class, 'sendPushNotifications']); //Send push notification to ALL users
+
+    //Endpoint for Help
+    Route::post("/help", function (Request $request) {
+        // Handle the help request here
+        // You can send an email or create a ticket in your support system
+        $type = $request->input('type');
+        $message = $request->input('message');
+        $user = auth()->user();
+        $to = $type == "training" ? "lanfjord@telia.com" : ["lanfjord@telia.com", "support@sandarnecreations.com"];
+        $subject = "Motionmaster - Supportärende från " . $user->name;
+
+        $body = "Användare: " . $user->name . "\n" .
+                "E-post: " . $user->email . "\n" .
+                "Typ: " . $type . "\n" .
+                "Meddelande: " . htmlspecialchars($message) . "\n";
+
+        mail($to, $subject, $body, [
+            'From' => 'app@motionmaster.sandarnecreations.com',
+            'Reply-To' => $user->email,
+            'Content-Type' => 'text/plain; charset=utf-8'
+        ]);
+
+
+        return response()->json(['message' => 'Supportärende mottaget!'], 200);
+    })->name('help');
+        
 });
