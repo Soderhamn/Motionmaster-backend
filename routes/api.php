@@ -71,7 +71,7 @@ Route::middleware('auth:sanctum')->group(function () {
         $type = $request->input('type');
         $message = $request->input('message');
         $user = auth()->user();
-        $to = $type == "training" ? "lanfjord@telia.com" : ["lanfjord@telia.com", "support@sandarnecreations.com"];
+        $to = $type == "app" ? "lanfjord@telia.com,support@sandarnecreations.com" : "lanfjord@telia.com";
         $subject = "Motionmaster - Supportärende från " . $user->name;
 
         $body = "Användare: " . $user->name . "\n" .
