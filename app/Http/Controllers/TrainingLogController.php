@@ -53,8 +53,10 @@ class TrainingLogController extends Controller
      */
     public function show(TrainingLog $trainingLog)
     {
-        //Find the training log
-        $trainingLog = TrainingLog::findOrFail($trainingLog->id);
+        //Find the training log, with all the comments
+        $trainingLog = TrainingLog::with(['comments' => function($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->findOrFail($trainingLog->id);
 
         // Admin can see all training logs, users can only see their own
         if(auth()->user() &&  auth()->user()->role == "admin") {

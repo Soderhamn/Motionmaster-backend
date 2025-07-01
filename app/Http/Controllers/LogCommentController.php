@@ -16,7 +16,7 @@ class LogCommentController extends Controller
     {
         if(auth()->user() &&  auth()->user()->role == "admin") {
             //Get the latest 100 comments with the user that made the comment
-            return LogComment::with('user:id,name,surname,profile_picture_url')->latest()->limit(100)->get();
+            return LogComment::with('user:id,name')->latest()->limit(100)->get();
         } else {
             return response()->json(['error' => 'Forbidden'], 403);
         }
@@ -39,34 +39,48 @@ class LogCommentController extends Controller
             'reply_to' => $request->reply_to ?? null,
         ]);
 
-        //Om det är ett svar, skicka pushnotis till den som fick svaret
+        
+        try {
+            if($request->reply_to) { //Om det är ett svar, skicka pushnotis till den som fick svaret
+                $replyTo = LogComment::findOrFail($request->reply_to);
+                $replyTo->user->sendNotification([
+                    'title' => 'Ny kommentar',
+                    'body' => $user->name . ' har svarat på din kommentar',
+                ]);
+            }
+            // Hämta träningsloggens ägare
+            $trainingLog = TrainingLog::findOrFail($request->training_log_id);
+            $logOwner = $trainingLog->user;
 
-        if($request->reply_to) {
-            $replyTo = LogComment::findOrFail($request->reply_to);
-            $replyTo->user->sendNotification([
+            // Skicka pushnotis till träningsloggens ägare
+            $logOwner->sendNotification([
                 'title' => 'Ny kommentar',
-                'body' => $user->name . ' har svarat på din kommentar',
+                'body' => $user->name . ' har kommenterat din träningslogg',
             ]);
+        } catch (\Exception $e) {
+            // Om det inte går att skicka pushnotis, logga felet
+            \Log::error('Failed to send notification: ' . $e->getMessage());
         }
-        // Hämta träningsloggens ägare
-        $trainingLog = TrainingLog::findOrFail($request->training_log_id);
-        $logOwner = $trainingLog->user;
-
-        // Skicka pushnotis till träningsloggens ägare
-        $logOwner->sendNotification([
-            'title' => 'Ny kommentar',
-            'body' => $user->name . ' har kommenterat din träningslogg',
-        ]);
+        // Returnera den skapade kommentaren
+        return response()->json($logComment, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(LogComment $logComment)
+    public function show(Request $request, LogComment $logComment)
     {
         //Display a specific comment
         //Get the comment with the user that made the comment
-        return $logComment->with('user:id,name')->get();
+        //If the user is not Admin or the owner of the comment, return 403
+
+        if(auth()->user() &&  auth()->user()->role == "admin") {
+            return $logComment->with('user:id,name')->get();
+        } else if (auth()->user() && auth()->user()->id == $logComment->user_id) {
+            return $logComment->with('user:id,name')->get();
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
     }
 
     /**
@@ -74,8 +88,15 @@ class LogCommentController extends Controller
      */
     public function update(Request $request, LogComment $logComment)
     {
-        //Uppdatera en specifik kommentar
-        $logComment->update($request->all());
+        //Uppdatera en specifik kommentar, checka om användaren är admin eller ägaren av kommentaren
+
+        if(auth()->user() &&  auth()->user()->role == "admin") {
+            $logComment->update($request->all());
+        } else if (auth()->user() && auth()->user()->id == $logComment->user_id) {
+            $logComment->update($request->all());
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
 
         return response()->json($logComment, 200);
     }
@@ -85,8 +106,15 @@ class LogCommentController extends Controller
      */
     public function destroy(LogComment $logComment)
     {
-        //Radera en specifik kommentar
-        $logComment->delete();
+        //Radera en specifik kommentar, kolla om användaren är admin eller ägaren av kommentaren
+
+        if(auth()->user() &&  auth()->user()->role == "admin") {
+            $logComment->delete();
+        } else if (auth()->user() && auth()->user()->id == $logComment->user_id) {
+            $logComment->delete();
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
 
         return response()->json(['success' => 'Comment deleted'], 200);
 

@@ -28,4 +28,10 @@ class TrainingLog extends Model
     {
         return $this->belongsTo(TrainingSchedule::class);
     }
+
+    //This has many comments
+    public function comments()
+    {
+        return $this->hasMany(TrainingLogComment::class);
+    }
 }
