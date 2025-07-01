@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
 
 class UserController
 {
@@ -212,6 +213,44 @@ class UserController
             }
 
             return response()->json(['success' => 'Emails sent'], 200);
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+    }
+
+    //Send push notifications to ALL users
+    public function sendPushNotifications(Request $request)
+    {
+        //Send push notification to ALL users
+        if(auth()->user() &&  auth()->user()->role == "admin") {
+            $users = User::whereNotNull('push_token');
+            $title = $request->title;
+            $body = $request->message;
+
+            //If there is no users, return error
+            if($users->count() == 0) {
+                return response()->json(['error' => 'No users with push tokens found'], 404);
+            }
+
+            $client = new Client();
+            foreach($users as $user) {
+                try {
+                    $response = $client->request('POST', 'https://exp.host/--/api/v2/push/send', [
+                        'headers' => [
+                            'Accept' => 'application/json',
+                            'Content-Type' => 'application/json',
+                        ],
+                        'json' => [
+                            'to' => $user->push_token,
+                            'title' => $title,
+                            'body' => $body,
+                        ]
+                    ]);
+                } catch (\Exception $e) {
+                    \Log::error('Failed to send notification: ' . $e->getMessage());
+                }
+            }
+            return response()->json(['success' => 'Push notifications sent'], 200);
         } else {
             return response()->json(['error' => 'Forbidden'], 403);
         }
