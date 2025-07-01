@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/users/{user}", [UserController::class, 'show']); //Get a specific user
     Route::put("/users/{user}", [UserController::class, 'update']); //Update a specific user
     Route::delete("/users/{user}", [UserController::class, 'destroy']); //Delete a specific user
+    Route::get("/admin/users/{user}", [UserController::class, 'adminGetUser']); //Get a specific user for admin panel
 
     //Training log routes
     Route::get("/traininglogs", [TrainingLogController::class, 'index']); //Get all training logs
