@@ -192,7 +192,7 @@ class UserController
     {
         //Send email to ALL users
         if(auth()->user() &&  auth()->user()->role == "admin") {
-            $users = User::all();
+            $users = User::whereNotNull('email_verified_at')->where('email_notifications', 1); //Check if email is verified and email notifications are enabled
             $subject = $request->subject;
             $message = $request->message;
             //$txtMessage = $request->txtMessage;
