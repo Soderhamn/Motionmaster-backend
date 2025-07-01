@@ -99,7 +99,7 @@ class UserController
         //Admin can get any user, this is for the admin panel and includes goals and training schedules and the last 100 training logs
         //This is used in the admin panel to view a specific user
         if(auth()->user() && auth()->user()->role == "admin") {
-            $user = User::with(['goals', 'trainingSchedules', 'trainingLogs' => function($query) {
+            $user = User::with(['trainingGoals', 'trainingSchedules', 'trainingLogs' => function($query) {
                 $query->orderBy('created_at', 'desc')->take(100);
             }])->findOrFail($userId);
 
