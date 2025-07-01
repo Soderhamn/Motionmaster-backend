@@ -32,6 +32,6 @@ class TrainingLog extends Model
     //This has many comments
     public function comments()
     {
-        return $this->hasMany(TrainingLogComment::class);
+        return $this->hasMany(LogComment::class);
     }
 }
