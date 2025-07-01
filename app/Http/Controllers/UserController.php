@@ -216,4 +216,25 @@ class UserController
             return response()->json(['error' => 'Forbidden'], 403);
         }
     }
+
+    public function adminDashboard() {
+        //Get admin dashboard data
+        if(auth()->user() &&  auth()->user()->role == "admin") {
+            $usersCount = User::count();
+            $trainingLogsCount = \App\Models\TrainingLog::count();
+            $trainingGoalsCount = \App\Models\TrainingGoal::count();
+            $trainingSchedulesCount = \App\Models\TrainingSchedule::count();
+            $logCommentsCount = \App\Models\LogComment::count();
+
+            return response()->json([
+                'users_count' => $usersCount,
+                'training_logs_count' => $trainingLogsCount,
+                'training_goals_count' => $trainingGoalsCount,
+                'training_schedules_count' => $trainingSchedulesCount,
+                'log_comments_count' => $logCommentsCount,
+            ], 200);
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+    }
 }

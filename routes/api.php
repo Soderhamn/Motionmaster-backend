@@ -19,6 +19,8 @@ Route::post("/logout", [UserController::class, 'logout'])->middleware('auth:sanc
 
 //All other routes require authentication
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get("/adminDashboard", [UserController::class, 'adminDashboard']); //Get admin dashboard data
+
     //User routes
     Route::get("/users", [UserController::class, 'index']); //Get all users
     Route::get("/users/{user}", [UserController::class, 'show']); //Get a specific user
