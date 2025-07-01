@@ -14,7 +14,7 @@ class TrainingLogController extends Controller
     {
         // Admin can see all training logs, users can only see their own
         if(auth()->user() && auth()->user()->role == "admin") {
-            return TrainingLog::orderBy('date', 'desc')->take(1000)->get(); //Kan se de senaste 1000 loggarna
+            return TrainingLog::with(['user:id,name'])->withCount('comments')->orderBy('date', 'desc')->take(1000)->get(); //Kan se de senaste 1000 loggarna
         } else {
             return TrainingLog::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->take(100)->get(); //Kan se de senaste 100 loggarna
         }
