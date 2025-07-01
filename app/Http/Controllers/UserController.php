@@ -208,7 +208,8 @@ class UserController
                 try {
                     mail($user->email, $subject, $message, $headers);
                 } catch (\Exception $e) {
-                    //Ignore the error
+                    //Log
+                    \Log::error('Failed to send email: ' . $e->getMessage());
                 }
             }
 
