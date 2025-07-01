@@ -100,7 +100,7 @@ class UserController
         //This is used in the admin panel to view a specific user
         if(auth()->user() && auth()->user()->role == "admin") {
             $user = User::with(['trainingGoals', 'trainingSchedules', 'trainingLogs' => function($query) {
-                $query->orderBy('created_at', 'desc')->take(100);
+                $query->orderBy('created_at', 'desc')->take(100)->withCount('comments');
             }])->findOrFail($userId);
 
             return response()->json($user, 200);

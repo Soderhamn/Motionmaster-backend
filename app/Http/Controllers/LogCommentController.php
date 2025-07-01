@@ -16,7 +16,9 @@ class LogCommentController extends Controller
     {
         if(auth()->user() &&  auth()->user()->role == "admin") {
             //Get the latest 500 comments with the user that made the comment
-            return LogComment::with('user:id,name')->latest()->limit(500)->get();
+            return LogComment::with('user:id,name')->withCount(['replies' => function ($query) {
+                $query->whereNotNull('reply_to'); // Räkna bara kommentarer med reply_to
+            }])->latest()->limit(500)->get();
         } else {
             return response()->json(['error' => 'Forbidden'], 403);
         }

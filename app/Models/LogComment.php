@@ -25,4 +25,9 @@ class LogComment extends Model
     {
         return $this->belongsTo(TrainingLog::class);
     }
+
+    public function replies()
+    {
+        return $this->hasMany(LogComment::class, 'reply_to');
+    }
 }
