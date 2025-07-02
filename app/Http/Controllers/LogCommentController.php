@@ -20,12 +20,17 @@ class LogCommentController extends Controller
                 $query->whereNotNull('reply_to'); // Räkna bara kommentarer med reply_to
             }])->latest()->limit(500)->get();
         } else if (auth()->user()) {
-            //Get the latest 100 comments (commented by anyone) made on training_logs by the authenticated user
-            return TrainingLog::whereHas('comments', function ($query) {
-                $query->where('user_id', auth()->user()->id);
-            })->with(['comments' => function ($query) {
-                $query->with('user:id,name')->latest()->limit(100);
-            }])->get();
+            $trainingLogs = TrainingLog::whereHas('comments', function ($query) {
+                    $query->where('user_id', auth()->user()->id);
+                })->get();
+
+            if ($trainingLogs->isEmpty()) {
+                return response()->json(['message' => 'No training logs found for the authenticated user'], 404);
+            }
+
+            return $trainingLogs->load(['comments' => function ($query) {
+                $query->with('user:id,name')->orderBy('created_at', 'desc')->take(100);
+            }]);
         } else {
             return response()->json(['error' => 'Forbidden'], 403);
         }
