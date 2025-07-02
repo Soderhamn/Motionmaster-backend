@@ -50,7 +50,7 @@ class LogCommentController extends Controller
         try {
             if($request->reply_to) { //Om det är ett svar, skicka pushnotis till den som fick svaret
                 $replyTo = LogComment::findOrFail($request->reply_to);
-                $replyTo->user->sendNotification([
+                $replyTo->user->sendNotifications([
                     'title' => 'Ny kommentar',
                     'body' => $user->name . ' har svarat på din kommentar',
                 ]);
@@ -60,7 +60,7 @@ class LogCommentController extends Controller
             $logOwner = $trainingLog->user;
 
             // Skicka pushnotis till träningsloggens ägare
-            $logOwner->sendNotification([
+            $logOwner->sendNotifications([
                 'title' => 'Ny kommentar',
                 'body' => $user->name . ' har kommenterat din träningslogg',
             ]);
