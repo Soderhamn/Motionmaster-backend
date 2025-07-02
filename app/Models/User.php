@@ -112,6 +112,7 @@ class User extends Authenticatable
 
         if ($this->email && $this->email_notifications) {
             $urlEncodedEmail = urlencode($this->email);
+            $appUrl = Config::get('app.url');
         
             // Skicka mejlet
             Mail::to($this->email)->send(new NotificationMail(
