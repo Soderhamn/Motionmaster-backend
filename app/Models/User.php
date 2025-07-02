@@ -117,7 +117,7 @@ class User extends Authenticatable
             Mail::to($this->email)->send(new NotificationMail(
                 $this->name,
                 $data['title'],
-                $body,
+                $data['body'],
                 "{$appUrl}/unregister-email-notifications.php?email={$urlEncodedEmail}"
             ));
         }
