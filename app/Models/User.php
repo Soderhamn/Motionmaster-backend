@@ -88,11 +88,8 @@ class User extends Authenticatable
     }
 
     public function sendNotifications($data) {
-        $userPushToken = $this->push_token;
-        $userEmail = $this->email;
-        $userEmailNotifications = $this->email_notifications;
 
-        if($userPushToken) {
+        if($this->push_token) {
             $client = new Client();
             try {
             $response = $client->request('POST', 'https://exp.host/--/api/v2/push/send', [
@@ -101,7 +98,7 @@ class User extends Authenticatable
                     'Content-Type' => 'application/json',
                 ],
                 'json' => [
-                    'to' => $userPushToken,
+                    'to' => $this->push_token,
                     'title' => $data['title'],
                     'body' => $data['body'],
                 ]
@@ -111,23 +108,16 @@ class User extends Authenticatable
             }
         }
 
-        if ($userEmail && $userEmailNotifications) {
-            $appName = config('app.name'); // Hämta appnamnet
-            $appUrl = Config::get('app.url');
-            $urlEncodedEmail = urlencode($userEmail);
-            $unregisterText = "Avregistrera från mejlnotiser? Klicka här: {$appUrl}/unregister-email-notifications.php?email={$urlEncodedEmail} eller avaktivera i appen.";
-            $mailFromAddress = config('mail.from.address');
-        
-            $subject = "{$appName} - " . $data['title'];
-            $body = $data['body'] . "\n\n" . $unregisterText;
-        
-            // Ange headers för charset och MIME-typ
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-Type: text/plain; charset=UTF-8" . "\r\n";
-            $headers .= "From: {$appName} <{$mailFromAddress}>" . "\r\n";
+        if ($this->email && $this->email_notifications) {
+            $urlEncodedEmail = urlencode($this->email);
         
             // Skicka mejlet
-            mail($userEmail, $subject, $body, $headers);
+            Mail::to($this->email)->send(new NotificationMail(
+                $this->name,
+                $data['title'],
+                $body,
+                "{$appUrl}/unregister-email-notifications.php?email={$urlEncodedEmail}"
+            ));
         }
     }
 }

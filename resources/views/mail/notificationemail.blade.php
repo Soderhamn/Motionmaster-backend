@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Välkommen till Motionmaster</title>
+    <title>{{ $notificationTitle }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,14 +42,12 @@
 </head>
 <body>
     <div class="email-container">
-        <h1>Välkommen till Motionmaster - bekräfta din e-postadress</h1>
+        <h1>{{ $notificationTitle }}</h1>
         <p>Hej {{ $name }},</p>
-        <p>Välkommen till Motionmaster! Vi är glada att du har valt att bli medlem hos oss.</p>
-        <p>För att komma igång behöver du bekräfta din e-postadress. Klicka på länken nedan för att slutföra registreringen:</p>
-        <p><a href="{{ $confirmLink }}">Bekräfta e-postadress</a></p>
-        <p>Om du inte kan klicka på länken kan du kopiera och klistra in den i din webbläsare.</p>
-        <p>Om du inte har registrerat dig hos oss kan du ignorera detta meddelande.</p>
-        <p>Med vänliga hälsningar,<br>Motionmaster</p>
+        <p>{{ $notificationMessage }}</p>
+        <p>Öppna Motionmaster-appen för att se mer information om denna notifikation.</p>
+        <p style="font-size: 10px;">Vill du inte längre ta emot notifikationer via e-post?<br>Du kan ändra dina inställningar i appen eller klicka på länken nedan för att avregistrera dig från e-postnotifikationer:
+        <br><a href="{{ $unsubscribeLink }}">Avregistrera e-postnotifikationer</a></p>
     </div>
 </body>
 </html>
