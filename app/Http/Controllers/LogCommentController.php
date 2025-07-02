@@ -19,9 +19,14 @@ class LogCommentController extends Controller
             return LogComment::with('user:id,name')->withCount(['replies' => function ($query) {
                 $query->whereNotNull('reply_to'); // Räkna bara kommentarer med reply_to
             }])->latest()->limit(500)->get();
-        } else {
-            return response()->json(['error' => 'Forbidden'], 403);
-        }
+        } else if (auth()->user()) {
+            //Get the latest 100 comments (commented by anyone) made on training_logs by the authenticated user
+            return TrainingLog::whereHas('comments', function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            })->with(['comments' => function ($query) {
+                $query->with('user:id,name')->latest()->limit(100);
+            }])->get();
+        } 
     }
 
     /**
