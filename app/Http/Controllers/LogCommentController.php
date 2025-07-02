@@ -26,7 +26,9 @@ class LogCommentController extends Controller
             })->with(['comments' => function ($query) {
                 $query->with('user:id,name')->latest()->limit(100);
             }])->get();
-        } 
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
     }
 
     /**
