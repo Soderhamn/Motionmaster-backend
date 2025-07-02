@@ -35,7 +35,7 @@ class NotificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Motionmaster - ' . $this->notificationTitle,
+            subject: $this->notificationTitle . ' - Motionmaster',
         );
     }
 
