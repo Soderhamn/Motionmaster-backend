@@ -24,3 +24,7 @@ Homestead.json
 .php_cs.dist
 .phpunit.result.cache
 /.phpunit.result.cache
+public/verify-email.php
+public/forgot-password.php
+package-lock.json
+public/verify-email.php
