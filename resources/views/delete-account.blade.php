@@ -20,7 +20,7 @@
             
         </main>
         <footer>
-            <a href="{{ route('privacy-policy') }}" class="a">Integritetspolicy</a>
+            <a href="{{ route('welcome') }}" class="a">Tillbaka till startsidan</a>
         </footer>
     </body>
 </html>
