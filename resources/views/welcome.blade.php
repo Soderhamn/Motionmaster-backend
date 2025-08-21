@@ -12,7 +12,7 @@
             <h1>Motion Master</h1>
         </header>
         <main>
-            <p>Ladda ner appen från:</p>
+            <p style="text-align: center;">Ladda ner appen från:</p>
             <div class="store-links">
                 <a href="https://apps.apple.com/app/motionmaster/id6747353681">
                     <img src="{{ asset('images/app_store_badge.png') }}" alt="App Store">
