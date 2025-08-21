@@ -11,7 +11,7 @@
         <h1>Integritetspolicy för Motionmaster</h1>
         <p>Senast uppdaterad: [fyll i datum]</p>
 
-        <a href="{{ route('welcome') }}" class="a">Tillbaka till startsidan</a>
+        <a href="{{ route('/') }}" class="a">Tillbaka till startsidan</a>
 
         <p>Denna integritetspolicy beskriver hur vi samlar in, använder och skyddar dina personuppgifter när du använder appen Motionmaster. Policyn är framtagen i enlighet med Dataskyddsförordningen (GDPR).</p>
 
@@ -104,7 +104,7 @@
         </p>
 
         <footer>
-            <a href="{{ route('welcome') }}" class="a">Tillbaka till startsidan</a>
+            <a href="{{ route('/') }}" class="a">Tillbaka till startsidan</a>
         </footer>
     </body>
 </html>
