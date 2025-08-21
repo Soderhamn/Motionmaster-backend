@@ -9,10 +9,11 @@
     </head>
     <body>
         <header>
-            <h1>Integritetspolicy för Motionmaster</h1>
+            <h1>Motion Master</h1>
         </header>
         <main>
-            <p>Senast uppdaterad: [fyll i datum]</p>
+            <h2>Integritetspolicy</h2>
+            <p>Senast uppdaterad: 2025-08-21</p>
 
             <a href="{{ route('welcome') }}" class="a">Tillbaka till startsidan</a>
 

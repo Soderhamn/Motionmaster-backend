@@ -16,6 +16,10 @@ Route::get('/privacy-policy', function () {
     return view('privacy-policy');
 })->name('privacy-policy');
 
+Route::get('delete-account', function () {
+    return view('delete-account');
+})->name('delete-account');
+
 Route::get("/login", function () {
     return "<p>Login required</p>";
 });

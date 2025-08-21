@@ -23,7 +23,8 @@
             </div>
         </main>
         <footer>
-            <a href="{{ route('privacy-policy') }}" class="a">Integritetspolicy</a>
+            <p><a href="{{ route('privacy-policy') }}" class="a">Integritetspolicy</a></p>
+            <p><a href="{{ route('delete-account') }}" class="a">Radera konto</a></p>
         </footer>
     </body>
 </html>
