@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000261;
+  color: #ffffff;
+  text-align: center;
+  padding: 50px;
+}
+p {
+  font-size: 1.2em;
+}
+.a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.a:hover {
+  text-decoration: underline;
+}
+.store-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.store-links a {
+  text-decoration: none;
+}
+.store-links img {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+}
+footer {
+  margin-top: 30px;
+  font-size: 0.9em;
+}

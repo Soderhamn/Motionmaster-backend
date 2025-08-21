@@ -59,16 +59,17 @@ class LogCommentController extends Controller
                     'title' => 'Ny kommentar',
                     'body' => $user->name . ' har svarat på din kommentar',
                 ]);
-            }
-            // Hämta träningsloggens ägare
-            $trainingLog = TrainingLog::findOrFail($request->training_log_id);
-            $logOwner = $trainingLog->user;
+            } else {
+                // Hämta träningsloggens ägare
+                $trainingLog = TrainingLog::findOrFail($request->training_log_id);
+                $logOwner = $trainingLog->user;
 
-            // Skicka pushnotis till träningsloggens ägare
-            $logOwner->sendNotifications([
-                'title' => 'Ny kommentar',
-                'body' => $user->name . ' har kommenterat din träningslogg',
-            ]);
+                // Skicka pushnotis till träningsloggens ägare
+                $logOwner->sendNotifications([
+                    'title' => 'Ny kommentar',
+                    'body' => $user->name . ' har kommenterat din träningslogg',
+                ]);
+            }
         } catch (\Exception $e) {
             // Om det inte går att skicka pushnotis, logga felet
             \Log::error('Failed to send notification: ' . $e->getMessage());

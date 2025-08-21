@@ -4,24 +4,23 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Motionmaster</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                color: #333;
-                text-align: center;
-                padding: 50px;
-            }
-            h1 {
-                color: #2c3e50;
-            }
-            p {
-                font-size: 1.2em;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
+        <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
     </head>
     <body>
-        <h1>Motionmaster</h1>
-        <main>
+        <h1>Motion Master</h1>
+
+        <p>Ladda ner appen från:</p>
+        <div class="store-links">
+            <a href="https://apps.apple.com/app/motionmaster/id6747353681">
+                <img src="{{ asset('images/app_store_badge.png') }}" alt="App Store">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.jadranka.motionmaster">
+                <img src="{{ asset('images/google_play_badge.png') }}" alt="Google Play">
+            </a>
+        </div>
+        <footer>
+            <a href="{{ route('privacy-policy') }}" class="a">Integritetspolicy</a>
+        </footer>
     </body>
 </html>
