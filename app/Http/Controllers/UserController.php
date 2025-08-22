@@ -209,6 +209,17 @@ class UserController
         }
     }
 
+    public function pushToken(Request $request)
+    {
+        $user = auth()->user();
+        if($user) {
+            $user->update(['push_token' => $request->push_token]);
+            return response()->json(['success' => 'Push token added'], 200);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    }
+
     //Send push notifications to ALL users
     public function sendPushNotifications(Request $request)
     {
@@ -245,6 +256,28 @@ class UserController
         } else {
             return response()->json(['error' => 'Forbidden'], 403);
         }
+    }
+
+    public function changePassword(Request $request)
+    {
+        //Change password for the authenticated user
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|max:128',
+        ]);
+
+        $user = auth()->user();
+
+        if(!$user || !Hash::check($request->current_password, $user->password)) {
+            return response()->json(['error' => 'Current password is incorrect'], 401);
+        }
+
+        $user->password = Hash::make($request->new_password, [
+            'rounds' => 12
+        ]);
+        $user->save();
+
+        return response()->json(['success' => 'Password changed successfully'], 200);
     }
 
     public function adminDashboard() {

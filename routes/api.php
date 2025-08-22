@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //User routes
     Route::get("/users", [UserController::class, 'index']); //Get all users
+    Route::post("users/changePassword", [UserController::class, 'changePassword']); //Change password for the authenticated user
+    Route::post("users/pushToken", [UserController::class, 'pushToken']); //Update push token for the authenticated user
     Route::get("/users/{user}", [UserController::class, 'show']); //Get a specific user
     Route::put("/users/{user}", [UserController::class, 'update']); //Update a specific user
     Route::delete("/users/{user}", [UserController::class, 'destroy']); //Delete a specific user
