@@ -44,6 +44,7 @@ class User extends Authenticatable
         'password_reset_code',
         'password_reset_code_created_at',
         'premium_level',
+        'gender',
     ];
 
     /**
