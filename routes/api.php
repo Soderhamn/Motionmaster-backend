@@ -51,11 +51,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Log comment routes
     Route::get("/logcomments", [LogCommentController::class, 'index']); //Get all comments (latest 100, in Admin panel)
+    Route::get("/logcomments/traininglog/{trainingLog}", [LogCommentController::class, 'getLogComments']); //Get all comments for a specific training log
     Route::get("/logcomments/{logComment}", [LogCommentController::class, 'show']); //Get a specific comment
     Route::post("/logcomments", [LogCommentController::class, 'store']); //Create a new comment
     Route::put("/logcomments/{logComment}", [LogCommentController::class, 'update']); //Update a specific comment
     Route::delete("/logcomments/{logComment}", [LogCommentController::class, 'destroy']); //Delete a specific comment
-    Route::get("/logcomments/traininglog/{trainingLog}", [LogCommentController::class, 'getLogComments']); //Get all comments for a specific training log
+    
 
     //User training goals routes
     Route::get("/traininggoals", [TrainingGoalController::class, 'index']); //Get all user training goals

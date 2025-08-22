@@ -132,4 +132,19 @@ class LogCommentController extends Controller
         return response()->json(['success' => 'Comment deleted'], 200);
 
     }
+
+    //Get a specific training log and its comments
+    public function getLogComments(TrainingLog $trainingLog)
+    {
+        // Kontrollera behörighet
+        if (auth()->user() && (auth()->user()->role == "admin" || $trainingLog->user_id == auth()->user()->id)) {
+            // Ladda träningsloggen med kommentarer och användarinformation
+            $trainingLog->load(['comments.user:id,name']);
+
+            // Returnera träningsloggen med kommentarer
+            return response()->json($trainingLog, 200);
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+    }
 }
