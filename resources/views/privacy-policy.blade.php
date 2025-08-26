@@ -13,7 +13,7 @@
         </header>
         <main>
             <h2>Integritetspolicy</h2>
-            <p>Senast uppdaterad: 2025-08-21</p>
+            <p>Senast uppdaterad: 2025-08-61</p>
 
             <a href="{{ route('welcome') }}" class="a">Tillbaka till startsidan</a>
 
@@ -24,8 +24,8 @@
                 Personuppgiftsansvarig för Motionmaster är:<br>
                 <strong>Jadranka Lanfjord</strong><br>
                 Enskild firma<br>
-                Organisationsnummer: XXXXXX-XXXX<br>
-                E-post: [fyll i e-postadress]<br>
+                Organisationsnummer: 820827-4400<br>
+                E-post: lanfjord@telia.com<br>
             </p>
 
             <h2>Personuppgiftsbiträde</h2>
@@ -33,7 +33,7 @@
                 För drift och lagring av data anlitas:<br>
                 <strong>Sandarne Creations</strong><br>
                 Enskild firma<br>
-                Organisationsnummer: XXXXXX-XXXX<br>
+                Organisationsnummer: 910410-4055<br>
                 Dina personuppgifter lagras och behandlas i Sandarne Creations system för Jadranka Lanfjords räkning. Ett personuppgiftsbiträdesavtal finns upprättat mellan parterna.
             </p>
 
@@ -104,7 +104,7 @@
             <p>
                 För frågor kring denna integritetspolicy eller hur dina uppgifter behandlas, kontakta:<br>
                 <strong>Jadranka Lanfjord</strong><br>
-                E-post: [fyll i e-postadress]<br>
+                E-post: lanfjord@telia.com<br>
             </p>
         </main>
         <footer>
