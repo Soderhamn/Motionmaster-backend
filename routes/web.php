@@ -12,6 +12,10 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/terms-of-use', function () {
+    return view('terms-of-use');
+})->name('terms-of-use');
+
 Route::get('/privacy-policy', function () {
     return view('privacy-policy');
 })->name('privacy-policy');

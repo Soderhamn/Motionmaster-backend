@@ -24,6 +24,7 @@
         </main>
         <footer>
             <p><a href="{{ route('support') }}" class="a">Hjälp och support</a></p>
+            <p><a href="{{ route('terms-of-use') }}" class="a">Användarvillkor</a></p>
             <p><a href="{{ route('privacy-policy') }}" class="a">Integritetspolicy</a></p>
             <p><a href="{{ route('delete-account') }}" class="a">Radera konto</a></p>
         </footer>
