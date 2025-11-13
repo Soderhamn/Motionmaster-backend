@@ -183,7 +183,7 @@ class UserController
     {
         //Send email to ALL users
         if(auth()->user() &&  auth()->user()->role == "admin") {
-            $users = User::whereNotNull('email_verified_at')->where('email_notifications', 1); //Check if email is verified and email notifications are enabled
+            $users = User::whereNotNull('email_verified_at')->where('email_notifications', 1)->get(); //Check if email is verified and email notifications are enabled
             $subject = $request->subject;
             $message = $request->message;
             //$txtMessage = $request->txtMessage;
@@ -225,7 +225,7 @@ class UserController
     {
         //Send push notification to ALL users
         if(auth()->user() &&  auth()->user()->role == "admin") {
-            $users = User::whereNotNull('push_token');
+            $users = User::whereNotNull('push_token')->get();
             $title = $request->title;
             $body = $request->message;
 
