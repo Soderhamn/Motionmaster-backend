@@ -300,4 +300,29 @@ class UserController
             return response()->json(['error' => 'Forbidden'], 403);
         }
     }
+
+    public function adminUpgradeToPremium(Request $request)
+    {
+        //Upgrade a user to premium from admin panel
+        if(auth()->user() &&  auth()->user()->role == "admin") {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+                'premium_level' => 'required',
+            ]);
+
+            $premiumLevel = $request->premium_level;
+
+            if($premiumLevel != 0 && $premiumLevel != 1 && $premiumLevel != 2 && $premiumLevel != 3) {
+                return response()->json(['error' => 'Invalid premium level'], 400);
+            }
+
+            $user = User::find($request->user_id);
+            $user->premium_level = $premiumLevel;
+            $user->save();
+
+            return response()->json(['success' => 'User upgraded to premium level ' . $premiumLevel], 200);
+        } else {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+    }
 }

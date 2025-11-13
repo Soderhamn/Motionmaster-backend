@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put("/users/{user}", [UserController::class, 'update']); //Update a specific user
     Route::delete("/users/{user}", [UserController::class, 'destroy']); //Delete a specific user
     Route::get("/admin/users/{user}", [UserController::class, 'adminGetUser']); //Get a specific user for admin panel
+    Route::post("/admin/upgrade-to-premium", [UserController::class, 'adminUpgradeToPremium']); //Upgrade a user to premium in admin panel
 
     //Training log routes
     Route::get("/traininglogs", [TrainingLogController::class, 'index']); //Get all training logs
