@@ -188,11 +188,11 @@ class UserController
             $message = $request->message;
             //$txtMessage = $request->txtMessage;
 
-            $headers = [
+            /*$headers = [
                 'Content-Type' => 'text/html charset=utf-8',
                 'X-Mailer' => 'SC Mailer 1.0',
                 'From' => Config::get('mail.from.address'),
-            ];
+            ];*/
 
             foreach($users as $user) {
                 try {
