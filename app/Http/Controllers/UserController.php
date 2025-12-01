@@ -196,7 +196,12 @@ class UserController
 
             foreach($users as $user) {
                 try {
-                    mail($user->email, $subject, $message, $headers);
+                    /*mail($user->email, $subject, $message, $headers);*/
+                    Mail::raw($message, function ($mail) use ($user, $subject) {
+                        $mail->to($user->email)
+                             ->subject($subject)
+                             ->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
+                    });
                 } catch (\Exception $e) {
                     //Log
                     \Log::error('Failed to send email: ' . $e->getMessage());
@@ -317,6 +322,11 @@ class UserController
             }
 
             $user = User::find($request->user_id);
+
+            if(!$user) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+
             $user->premium_level = $premiumLevel;
             $user->save();
 

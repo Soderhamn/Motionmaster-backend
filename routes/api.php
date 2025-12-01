@@ -7,6 +7,7 @@ use App\Http\Controllers\TrainingLogController;
 use App\Http\Controllers\TrainingScheduleController;
 use App\Http\Controllers\LogCommentController;
 use App\Http\Controllers\TrainingGoalController;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     return response()->json(['message' => 'API is online!'], 200);
@@ -78,7 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         $type = $request->input('type');
         $message = $request->input('message');
         $user = auth()->user();
-        $to = $type == "app" ? "lanfjord@telia.com,support@sandarnecreations.com" : "lanfjord@telia.com";
+        $to = $type == "app" ? "lanfjord@telia.com,support@sandarnecreations.com" : "info@jandrankalanfjord.se";
         $subject = "Motionmaster - Supportärende från " . $user->name;
 
         $body = "Användare: " . $user->name . "\n" .
@@ -86,12 +87,19 @@ Route::middleware('auth:sanctum')->group(function () {
                 "Typ: " . $type . "\n" .
                 "Meddelande: " . htmlspecialchars($message) . "\n";
 
-        mail($to, $subject, $body, [
+        /*mail($to, $subject, $body, [
             'From' => 'app@motionmaster.sandarnecreations.com',
             'Reply-To' => $user->email,
             'Content-Type' => 'text/plain; charset=utf-8'
-        ]);
+        ]);*/
 
+        Mail::raw($body, function ($mail) use ($to, $subject, $user) {
+            $mail->to($to)
+                 ->subject($subject)
+                 ->from('app@motionmaster.sandarnecreations.com', 'Motionmaster Support')
+                 ->replyTo($user->email);
+
+        });
 
         return response()->json(['message' => 'Supportärende mottaget!'], 200);
     })->name('help');
