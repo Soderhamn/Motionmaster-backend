@@ -16,7 +16,7 @@
             <p>För hjälp och support, använd gärna kontaktformuläret i appen under "Hjälp" i huvudmenyn.</p>
             <p>Du kan också kontakta mig via e-post:</p>
             <p><strong>Jadranka Lanfjord</strong></p>
-            <p>E-post: <a href="mailto:lanfjord@telia.com">lanfjord@telia.com</a></p>
+            <p>E-post: <a href="mailto:info@jandrankalanfjord.se">info@jandrankalanfjord.se</a></p>
             
             </div>
         </main>

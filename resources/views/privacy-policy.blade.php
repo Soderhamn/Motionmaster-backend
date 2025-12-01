@@ -25,7 +25,7 @@
                 <strong>Jadranka Lanfjord</strong><br>
                 Enskild firma<br>
                 Organisationsnummer: 820827-4400<br>
-                E-post: lanfjord@telia.com<br>
+                E-post: info@jandrankalanfjord.se<br>
             </p>
 
             <h2>Personuppgiftsbiträde</h2>
@@ -104,7 +104,7 @@
             <p>
                 För frågor kring denna integritetspolicy eller hur dina uppgifter behandlas, kontakta:<br>
                 <strong>Jadranka Lanfjord</strong><br>
-                E-post: lanfjord@telia.com<br>
+                E-post: info@jandrankalanfjord.se<br>
             </p>
         </main>
         <footer>

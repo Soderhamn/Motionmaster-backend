@@ -79,7 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         $type = $request->input('type');
         $message = $request->input('message');
         $user = auth()->user();
-        $to = $type == "app" ? "lanfjord@telia.com,support@sandarnecreations.com" : "info@jandrankalanfjord.se";
+        $to = $type == "app" ? "info@jandrankalanfjord.se,support@sandarnecreations.com" : "info@jandrankalanfjord.se";
         $subject = "Motionmaster - Supportärende från " . $user->name;
 
         $body = "Användare: " . $user->name . "\n" .

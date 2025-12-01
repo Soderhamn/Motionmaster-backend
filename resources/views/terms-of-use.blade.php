@@ -21,7 +21,7 @@
             <p><strong>Jadranka Lanfjord</strong><br>
             Enskild firma<br>
             Organisationsnummer: 820827-4400<br>
-            E-post: <a href="mailto:lanfjord@telia.com">lanfjord@telia.com</a></p>
+            E-post: <a href="mailto:info@jandrankalanfjord.se">info@jandrankalanfjord.se</a></p>
 
             <p>Genom att ladda ner, installera eller använda Motion Master godkänner du dessa Villkor samt vår integritetspolicy. 
             Om du laddar ner appen via App Store omfattas du dessutom av <strong>Apples Standard End User License Agreement (STDEULA)</strong>: 
@@ -84,7 +84,7 @@
             <h3>10. Kontakt</h3>
             <p>För frågor om dessa villkor eller appen Motion Master:<br>
             <strong>Jadranka Lanfjord</strong><br>
-            E-post: <a href="mailto:lanfjord@telia.com">lanfjord@telia.com</a></p>
+            E-post: <a href="mailto:info@jandrankalanfjord.se">info@jandrankalanfjord.se</a></p>
 
         </main>
         <footer>
