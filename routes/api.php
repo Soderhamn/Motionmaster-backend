@@ -9,6 +9,7 @@ use App\Http\Controllers\LogCommentController;
 use App\Http\Controllers\TrainingGoalController;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     return response()->json(['message' => 'API is online!'], 200);
@@ -122,11 +123,18 @@ Route::post("/sendPasswordResetEmail", function (Request $request) {
         return response()->json(['message' => 'Invalid email or code'], 400);
     }
 
+    Log::info("Sending reset email to: " . $user->email . " with code: " . $request->code);
+
+    try {
     Mail::raw("Din kod för återställning av lösenord är: " . $request->code . "\n\nGå tillbaka till sidan och ange denna kod för att återställa ditt lösenord.", function ($mail) use ($user) {
         $mail->to($user->email)
-             ->subject('Återställning av lösenord - Motion Master')
+             ->subject('Återställning av lösenord')
              ->from('app@motionmaster.sandarnecreations.com', 'Motion Master');
     });
+    } catch (\Exception $e) {
+        Log::error("Failed to send password reset email to: " . $user->email . ". Error: " . $e->getMessage());
+        return response()->json(['message' => 'Failed to send password reset email'], 500);
+    }
 
     return response()->json(['message' => 'Password reset email sent!'], 200);
 
