@@ -8,6 +8,7 @@ use App\Http\Controllers\TrainingScheduleController;
 use App\Http\Controllers\LogCommentController;
 use App\Http\Controllers\TrainingGoalController;
 use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 Route::get('/', function () {
     return response()->json(['message' => 'API is online!'], 200);
@@ -105,3 +106,28 @@ Route::middleware('auth:sanctum')->group(function () {
     })->name('help');
         
 });
+
+Route::post("/sendPasswordResetEmail", function (Request $request) {
+    $validate = $request->validate([
+        'email' => 'required|email',
+        'code' => 'required'
+    ]);
+
+    $user = User::where('email', $request->email)
+                ->where('password_reset_code', $request->code)
+                ->whereDate('password_reset_code_created_at', now()->toDateString()) // Måste vara skapat idag (yyyy-mm-dd)
+                ->first();
+
+    if (!$user) {
+        return response()->json(['message' => 'Invalid email or code'], 400);
+    }
+
+    Mail::raw("Din kod för återställning av lösenord är: " . $request->code . "\n\nGå tillbaka till sidan och ange denna kod för att återställa ditt lösenord.", function ($mail) use ($user) {
+        $mail->to($user->email)
+             ->subject('Återställning av lösenord - Motion Master')
+             ->from('app@motionmaster.sandarnecreations.com', 'Motion Master');
+    });
+
+    return response()->json(['message' => 'Password reset email sent!'], 200);
+
+})->name('sendPasswordResetEmail');
