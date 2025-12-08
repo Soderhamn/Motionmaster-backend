@@ -90,6 +90,11 @@ class User extends Authenticatable
         return $this->hasMany(LogComment::class);
     }
 
+    public function calorieEntries()
+    {
+        return $this->hasMany(CalorieEntries::class);
+    }
+
     public function sendNotifications($data) {
 
         if($this->push_token) {

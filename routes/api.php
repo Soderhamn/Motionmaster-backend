@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/getActiveSchedule", [TrainingScheduleController::class, 'getActiveTrainingSchedule']); //Get the active training schedule for the logged in user
     Route::get("/trainingschedules/{trainingSchedule}", [TrainingScheduleController::class, 'show']); //Get a specific training schedule
     Route::post("/trainingschedules", [TrainingScheduleController::class, 'store']); //Create a new training schedule
+    
     //Create a training schedule from a template
     Route::post("/trainingschedules/{templateId}", [TrainingScheduleController::class, 'createFromTemplate']); //Create a new training schedule from a template
     Route::put("/trainingschedules/{trainingSchedule}", [TrainingScheduleController::class, 'update']); //Update a specific training schedule
@@ -60,7 +61,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/logcomments", [LogCommentController::class, 'store']); //Create a new comment
     Route::put("/logcomments/{logComment}", [LogCommentController::class, 'update']); //Update a specific comment
     Route::delete("/logcomments/{logComment}", [LogCommentController::class, 'destroy']); //Delete a specific comment
-    
+
+    //User exercise routes
+    Route::get("/exercises", [ExerciseController::class, 'index']); //Get all exercises
+    Route::get("/exercises/{exercise}", [ExerciseController::class, 'show']); //Get a specific exercise
+    Route::post("/exercises", [ExerciseController::class, 'store']); //Create a new exercise
+    Route::put("/exercises/{exercise}", [ExerciseController::class, 'update']); //Update a specific exercise
+    Route::delete("/exercises/{exercise}", [ExerciseController::class, 'destroy']); //Delete a specific exercise
+
+    //Calorie Entries routes
+    Route::get("/calorieentries", [CalorieEntriesController::class, 'index']); //Get all calorie entries for the authenticated user
+    Route::get("/calorieentries/weekly-summary", [CalorieEntriesController::class, 'getWeeklyCalorieSummary']); //Get weekly calorie summary for the authenticated user
+    Route::post("/calorieentries", [CalorieEntriesController::class, 'store']); //Create a new calorie entry
+    Route::delete("/calorieentries/{calorieEntry}", [CalorieEntriesController::class, 'destroy']); //Delete a specific calorie entry
 
     //User training goals routes
     Route::get("/traininggoals", [TrainingGoalController::class, 'index']); //Get all user training goals
