@@ -13,5 +13,6 @@ class Exercise extends Model
         'title',
         'short_description',
         'html_content',
+        'premium_level',
     ];
 }

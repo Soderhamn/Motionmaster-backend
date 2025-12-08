@@ -31,12 +31,14 @@ class ExerciseController extends Controller
             'title' => 'required|string|max:255',
             'short_description' => 'nullable|string|max:500',
             'html_content' => 'nullable|string',
+            'premium_level' => 'nullable|integer',
         ]);
 
         $exercise = Exercise::create($request->only([
             'title',
             'short_description',
             'html_content',
+            'premium_level',
         ]));
         return response()->json($exercise, 201);
     }
@@ -53,12 +55,14 @@ class ExerciseController extends Controller
             'title' => 'required|string|max:255',
             'short_description' => 'nullable|string|max:500',
             'html_content' => 'nullable|string',
+            'premium_level' => 'nullable|integer',
         ]);
 
         $exercise->update($request->only([
             'title',
             'short_description',
             'html_content',
+            'premium_level',
         ]));
         return response()->json($exercise);
     }
