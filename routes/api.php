@@ -7,9 +7,12 @@ use App\Http\Controllers\TrainingLogController;
 use App\Http\Controllers\TrainingScheduleController;
 use App\Http\Controllers\LogCommentController;
 use App\Http\Controllers\TrainingGoalController;
+use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\CalorieEntriesController;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+
 
 Route::get('/', function () {
     return response()->json(['message' => 'API is online!'], 200);
