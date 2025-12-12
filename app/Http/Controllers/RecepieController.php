@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Recepie;
 
 class RecepieController extends Controller
 {
@@ -33,13 +34,13 @@ class RecepieController extends Controller
             'premium_level' => 'nullable|integer',
         ]);
 
-        $exercise = Exercise::create($request->only([
+        $recepie = Recepie::create($request->only([
             'title',
             'short_description',
             'html_content',
             'premium_level',
         ]));
-        return response()->json($exercise, 201);
+        return response()->json($recepie, 201);
     }
 
     //Uppdatera ett recept
