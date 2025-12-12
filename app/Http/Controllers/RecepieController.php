@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Exercise;
 use Illuminate\Http\Request;
 
-class ExerciseController extends Controller
+class RecepieController extends Controller
 {
-    // List all exercises
+    //Lista alla recept
     public function index()
     {
-        return Exercise::all();
+        return Recepie::all();
     }
 
-    // Show a single exercise
-    public function show(Exercise $exercise)
+    //Visa ett specifikt recept
+    public function show(Recepie $recepie)
     {
-        return $exercise;
+        return $recepie;
     }
 
-    // Create a new exercise
+    //Skapa ett nytt recept
     public function store(Request $request)
     {
-        //Användaren måste vara admin för att kunna skapa övningar
+                //Användaren måste vara admin för att kunna skapa recept
         if (auth()->user()->role !== 'admin') {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
@@ -43,12 +42,12 @@ class ExerciseController extends Controller
         return response()->json($exercise, 201);
     }
 
-    // Update an exercise
-    public function update(Request $request, Exercise $exercise)
+    //Uppdatera ett recept
+    public function update(Request $request, Recepie $recepie)
     {
         //Användaren måste vara admin för att kunna uppdatera övningar
         if (auth()->user()->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return response()->json(['message' => 'Du har inte behörighet att uppdatera detta recept'], 403);
         }
 
         $request->validate([
@@ -58,25 +57,26 @@ class ExerciseController extends Controller
             'premium_level' => 'nullable|integer',
         ]);
 
-        $exercise->update($request->only([
+        $recepie->update($request->only([
             'title',
             'short_description',
             'html_content',
             'premium_level',
         ]));
-        
-        return response()->json($exercise, 200);
+
+        return response()->json($recepie, 200);
     }
 
-    // Delete an exercise
-    public function destroy(Exercise $exercise)
+    //Radera ett recept
+    public function destroy(Recepie $recepie)
     {
-        //Användaren måste vara admin för att kunna ta bort övningar
+        //Användaren måste vara admin för att kunna ta bort
         if (auth()->user()->role !== 'admin') {
-            return response()->json(['message' => 'Du har inte behörighet att ta bort denna övning'], 403);
+            return response()->json(['message' => 'Du har inte behörighet att ta bort detta recept'], 403);
         }
 
-        $exercise->delete();
-        return response()->json(['message' => 'Övningen har tagits bort']);
+        $recepie->delete();
+        return response()->json(['message' => 'Receptet har tagits bort']);
     }
+
 }
