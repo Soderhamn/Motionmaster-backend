@@ -9,6 +9,7 @@ use App\Http\Controllers\LogCommentController;
 use App\Http\Controllers\TrainingGoalController;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\CalorieEntriesController;
+use App\Http\Controllers\RecepieController;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
@@ -86,6 +87,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete("/traininggoals/{trainingGoal}", [TrainingGoalController::class, 'destroy']); //Delete a specific user training goal
     //Route::get("/traininggoals/user/{user}", [TrainingGoalController::class, 'getUserTrainingGoals']); //Get all user training goals for a specific user
 
+    //Recepie routes
+    Route::get("/recepies", [RecepieController::class, 'index']); //Get all recepies
+    Route::get("/recepies/{recepie}", [RecepieController::class, 'show']); //Get a specific recepie
+    Route::post("/recepies", [RecepieController::class, 'store']); //Create a new recepie
+    Route::put("/recepies/{recepie}", [RecepieController::class, 'update']); //Update a specific recepie
+    Route::delete("/recepies/{recepie}", [RecepieController::class, 'destroy']); //Delete a specific recepie
+    
     //Send email and push notifications to users
     Route::post("/sendemailnotifications", [UserController::class, 'sendEmailNotifications']); //Send email to ALL users
     Route::post("/sendpushnotifications", [UserController::class, 'sendPushNotifications']); //Send push notification to ALL users
