@@ -63,6 +63,7 @@ class CalorieEntriesController extends Controller
         $dailyTotals = [];
         $todayEntries = [];
         $otherEntries = [];
+        $caloriesToday = 0;
 
         foreach ($entries as $entry) {
             // Summera kalorier per dag
@@ -74,6 +75,7 @@ class CalorieEntriesController extends Controller
             // Dela upp dagens entries och övriga
             if ($entry->date === $today) {
                 $todayEntries[] = $entry;
+                $caloriesToday += $entry->calories;
             } else {
                 $otherEntries[] = $entry;
             }
@@ -83,17 +85,18 @@ class CalorieEntriesController extends Controller
             'dailyTotals' => $dailyTotals,
             'todayEntries' => $todayEntries,
             'otherEntries' => $otherEntries,
+            'caloriesToday' => $caloriesToday,
         ]);
     }
 
     //Radera en post utifrån ID
-    public function destroy(CalorieEntries $calorieEntries)
+    public function destroy(CalorieEntries $calorieEntry)
     {
-        if($calorieEntries->user_id != auth()->id()) {
+        if($calorieEntry->user_id != auth()->id()) {
             return response()->json("Du har inte behörighet att radera denna post", 403);
         }
 
-        $calorieEntries->delete();
+        $calorieEntry->delete();
         return response()->json("Kaloriinmatning raderad", 200);
     }
 }

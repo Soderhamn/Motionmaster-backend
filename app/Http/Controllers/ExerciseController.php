@@ -10,7 +10,7 @@ class ExerciseController extends Controller
     // List all exercises
     public function index()
     {
-        return Exercise::all();
+        return Exercise::all()->makeHidden(['html_content']);//döljer html_content i listan
     }
 
     // Show a single exercise
