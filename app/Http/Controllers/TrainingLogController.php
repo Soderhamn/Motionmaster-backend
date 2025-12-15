@@ -16,7 +16,7 @@ class TrainingLogController extends Controller
         if(auth()->user() && auth()->user()->role == "admin") {
             return TrainingLog::with(['user:id,name'])->withCount('comments')->orderBy('date', 'desc')->take(1000)->get(); //Kan se de senaste 1000 loggarna
         } else {
-            return TrainingLog::where('user_id', auth()->user()->id)->orderBy('date', 'desc')->take(100)->get(); //Kan se de senaste 100 loggarna
+            return TrainingLog::where('user_id', auth()->user()->id)->withCount('comments')->where('type', '!=', 'template')->orderBy('date', 'desc')->take(100)->get(); //Kan se de senaste 100 loggarna
         }
     }
 
@@ -28,11 +28,13 @@ class TrainingLogController extends Controller
         //Validate the request
         $request->validate([
             'user_id' => 'nullable|integer',
-            'date' => 'required|date',
+            'date' => 'nullable|date',
             'duration' => 'nullable|integer',
             'training_schedule_id' => 'nullable|integer',
-            'rating' => 'nullable|integer:min:1:max:5',
+            'rating' => 'nullable|integer|min:1|max:5',
             'comment' => 'nullable|string',
+            'activities' => 'nullable|json',
+            'type' => 'nullable|in:standard,template',
         ]);
 
         // Admin can create training logs for all users, users can only create their own
@@ -68,6 +70,12 @@ class TrainingLogController extends Controller
                 return response()->json(['error' => 'Forbidden'], 403);
             }
         }
+    }
+
+    public function showTemplates()
+    {
+        //Return all training logs of type template
+        return TrainingLog::where('type', 'template')->where('user_id', auth()->user()->id)->with(['user:id,name'])->orderBy('date', 'desc')->get();
     }
 
     /**

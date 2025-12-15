@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Training log routes
     Route::get("/traininglogs", [TrainingLogController::class, 'index']); //Get all training logs
+    Route::Get("/traininglogtemplates", [TrainingLogController::class, 'showTemplates']); //Get all training log templates
     Route::get("/traininglogs/{trainingLog}", [TrainingLogController::class, 'show']); //Get a specific training log
     Route::post("/traininglogs", [TrainingLogController::class, 'store']); //Create a new training log
     Route::put("/traininglogs/{trainingLog}", [TrainingLogController::class, 'update']); //Update a specific training log
@@ -93,7 +94,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/recepies", [RecepieController::class, 'store']); //Create a new recepie
     Route::put("/recepies/{recepie}", [RecepieController::class, 'update']); //Update a specific recepie
     Route::delete("/recepies/{recepie}", [RecepieController::class, 'destroy']); //Delete a specific recepie
-    
+
     //Send email and push notifications to users
     Route::post("/sendemailnotifications", [UserController::class, 'sendEmailNotifications']); //Send email to ALL users
     Route::post("/sendpushnotifications", [UserController::class, 'sendPushNotifications']); //Send push notification to ALL users

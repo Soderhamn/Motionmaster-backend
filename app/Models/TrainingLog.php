@@ -14,6 +14,12 @@ class TrainingLog extends Model
         'duration',
         'rating',
         'comment',
+        'activities',
+        'type', //standard or template (a template can be copied into a new log)
+    ];
+
+    protected $casts = [
+        'activities' => 'array',
     ];
 
 
