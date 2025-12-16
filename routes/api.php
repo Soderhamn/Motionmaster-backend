@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Training log routes
     Route::get("/traininglogs", [TrainingLogController::class, 'index']); //Get all training logs
-    Route::Get("/traininglogtemplates", [TrainingLogController::class, 'showTemplates']); //Get all training log templates
+    Route::get("/traininglogtemplates", [TrainingLogController::class, 'showTemplates']); //Get all training log templates
     Route::get("/traininglogs/{trainingLog}", [TrainingLogController::class, 'show']); //Get a specific training log
     Route::post("/traininglogs", [TrainingLogController::class, 'store']); //Create a new training log
     Route::put("/traininglogs/{trainingLog}", [TrainingLogController::class, 'update']); //Update a specific training log
