@@ -13,7 +13,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
+Route::get('/exercises/{exercise}', [ExerciseController::class, 'displayExerciseView'])->name('exercises.show');
 
 Route::get('/terms-of-use', function () {
     return view('terms-of-use');
