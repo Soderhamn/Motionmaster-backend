@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
-use App\Http\Controllers\ExerciesController;
+use App\Http\Controllers\ExerciseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,7 +13,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/exercises/{id}', [ExerciesController::class, 'show'])->name('exercises.show');
+Route::get('/exercises/{id}', [ExerciseController::class, 'show'])->name('exercises.show');
 
 Route::get('/terms-of-use', function () {
     return view('terms-of-use');
