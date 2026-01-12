@@ -107,7 +107,7 @@ Route::middleware('auth:sanctum')->group(function () {
         $message = $request->input('message');
         $user = auth()->user();
         $to = $type == "app" ? ["info@jandrankalanfjord.se", "support@sandarnecreations.com"] : ["info@jandrankalanfjord.se"];
-        $subject = "Motionmaster - Supportärende från " . $user->name;
+        $subject = "Motion Master - Supportärende från " . $user->name;
 
         $body = "Användare: " . $user->name . "\n" .
                 "E-post: " . $user->email . "\n" .
@@ -123,7 +123,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Mail::raw($body, function ($mail) use ($to, $subject, $user) {
             $mail->to($to)
                  ->subject($subject)
-                 ->from('app@motionmaster.sandarnecreations.com', 'Motionmaster Support')
+                 ->from('app@motionmaster.sandarnecreations.com', 'Motion Master Support')
                  ->replyTo($user->email);
 
         });

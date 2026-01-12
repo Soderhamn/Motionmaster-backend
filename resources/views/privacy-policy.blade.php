@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Motionmaster – Integritetspolicy</title>
+        <title>Motion Master – Integritetspolicy</title>
         <link rel="stylesheet" href="{{ asset('style.css') }}?v={{ filemtime(public_path('style.css')) }}">
         <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
     </head>
@@ -17,11 +17,11 @@
 
             <a href="{{ route('welcome') }}" class="a">Tillbaka till startsidan</a>
 
-            <p>Denna integritetspolicy beskriver hur vi samlar in, använder och skyddar dina personuppgifter när du använder appen Motionmaster. Policyn är framtagen i enlighet med Dataskyddsförordningen (GDPR).</p>
+            <p>Denna integritetspolicy beskriver hur vi samlar in, använder och skyddar dina personuppgifter när du använder appen Motion Master. Policyn är framtagen i enlighet med Dataskyddsförordningen (GDPR).</p>
 
             <h2>Personuppgiftsansvarig</h2>
             <p>
-                Personuppgiftsansvarig för Motionmaster är:<br>
+                Personuppgiftsansvarig för Motion Master är:<br>
                 <strong>Jadranka Lanfjord</strong><br>
                 Enskild firma<br>
                 Organisationsnummer: 820827-4400<br>

@@ -19,6 +19,11 @@ class ExerciseController extends Controller
         return $exercise;
     }
 
+    public function displayExerciseView(Exercise $exercise)
+    {
+        return view('exercise.show', ['exercise' => $exercise]);
+    }
+
     // Create a new exercise
     public function store(Request $request)
     {

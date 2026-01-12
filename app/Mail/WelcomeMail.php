@@ -33,7 +33,7 @@ class WelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Välkommen till Motionmaster - bekräfta din e-postadress',
+            subject: 'Välkommen till Motion Master - bekräfta din e-postadress',
         );
     }
 

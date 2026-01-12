@@ -18,7 +18,7 @@
         }
         .email-container {
             max-width: 600px;
-            margin: 20px auto;
+            margin: 20px 16px;
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -49,7 +49,7 @@
         <h1>{{ $notificationTitle }}</h1>
         <p>Hej {{ $name }},</p>
         <p>{{ $notificationMessage }}</p>
-        <p>Öppna Motionmaster-appen för att se mer information om denna notifikation.</p>
+        <p>Öppna Motion Master-appen för att se mer information om denna notifikation.</p>
         <p style="font-size: 10px;">Vill du inte längre ta emot notifikationer via e-post?<br>Du kan ändra dina inställningar i appen eller klicka på länken nedan för att avregistrera dig från e-postnotifikationer:
         <br><a href="{{ $unsubscribeLink }}">Avregistrera e-postnotifikationer</a></p>
     </div>
