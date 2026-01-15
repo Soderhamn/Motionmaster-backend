@@ -1,12 +1,12 @@
 <html>
             <head>
-                <title>Övning</title><meta name="viewport" content="width=device-width, initial-scale=1" />
-                
-                <style>
+                <title>Schema</title><meta name="viewport" content="width=device-width, initial-scale=1" />
+                                  <style>
                     body {
                       margin: 0;
                       padding: 0;
                       box-sizing: border-box;
+
                       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
                                   'Helvetica Neue', Arial, sans-serif;
                       font-size: 16px;
@@ -46,6 +46,6 @@
               </style>
             </head>
             <body>
-                {!! $exercise->html_content ?? "<h1>Ingen beskrivning tillgänglig</h1>" !!}
+                {!! $schedule->description ?? "<h1>No schedule available</h1>" !!}
             </body>
         </html>

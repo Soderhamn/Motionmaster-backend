@@ -15,6 +15,8 @@ Route::get('/welcome', function () {
 
 Route::get('/exercises/{exercise}', [ExerciseController::class, 'displayExerciseView'])->name('exercises.show');
 
+Route::get('/viewschedule/{schedule}', [TrainingScheduleController::class, 'displayScheduleView'])->name('schedule.show');
+
 Route::get('/terms-of-use', function () {
     return view('terms-of-use');
 })->name('terms-of-use');

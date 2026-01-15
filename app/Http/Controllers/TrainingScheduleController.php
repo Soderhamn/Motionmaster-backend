@@ -149,6 +149,11 @@ class TrainingScheduleController extends Controller
         }
     }
 
+    public function displayScheduleView(TrainingSchedule $schedule)
+    {
+        return view('app.schedule', ['schedule' => $schedule]);
+    }
+
     /**
      * Update the specified resource in storage.
      */
