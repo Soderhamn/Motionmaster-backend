@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\TrainingScheduleController;
 
 Route::get('/', function () {
     return view('welcome');
