@@ -29,7 +29,7 @@ class TrainingLogController extends Controller
         $request->validate([
             'user_id' => 'nullable|integer',
             'date' => 'nullable|date',
-            'duration' => 'nullable|integer',
+            'duration' => 'nullable|string',
             'training_schedule_id' => 'nullable|integer',
             'rating' => 'nullable|integer|min:1|max:5',
             'comment' => 'nullable|string',
