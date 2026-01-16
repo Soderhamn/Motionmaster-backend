@@ -109,6 +109,10 @@ class User extends Authenticatable
                     'to' => $this->push_token,
                     'title' => $data['title'],
                     'body' => $data['body'],
+                    'data' => [
+                        'type' => $data['type'] ?? null,
+                        'log_id' => $data['log_id'] ?? null,
+                    ],
                 ]
             ]);
             } catch (\Exception $e) {

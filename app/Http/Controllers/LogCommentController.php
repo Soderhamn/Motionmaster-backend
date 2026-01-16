@@ -58,6 +58,8 @@ class LogCommentController extends Controller
                 $replyTo->user->sendNotifications([
                     'title' => 'Ny kommentar',
                     'body' => $user->name . ' har svarat på din kommentar',
+                    'type' => 'comment',
+                    'log_id' => $request->training_log_id,
                 ]);
             } else {
                 // Hämta träningsloggens ägare
@@ -68,6 +70,8 @@ class LogCommentController extends Controller
                 $logOwner->sendNotifications([
                     'title' => 'Ny kommentar',
                     'body' => $user->name . ' har kommenterat din träningslogg',
+                    'type' => 'comment',
+                    'log_id' => $request->training_log_id,
                 ]);
             }
         } catch (\Exception $e) {
