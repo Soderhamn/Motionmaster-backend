@@ -6,6 +6,7 @@ use App\Models\LogComment;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\TrainingLog;
+use Illuminate\Support\Facades\Log;
 
 class LogCommentController extends Controller
 {
@@ -42,6 +43,13 @@ class LogCommentController extends Controller
         $userId = auth()->id(); // Den som skapar kommentaren
         //Hämta inloggad användare
         $user = User::findOrFail($userId);
+        // Validera 
+        $trainingLog = TrainingLog::find($request->training_log_id);
+        if (!$trainingLog) {
+            return response()->json(['error' => 'Trainingslogg hittades inte'], 404);
+        }
+
+        Log::info('User ID ' . $userId . ' is attempting to comment on training log ID ' . $request->training_log_id);
 
         // Skapa kommentaren
         $logComment = LogComment::create([
@@ -51,6 +59,7 @@ class LogCommentController extends Controller
             'reply_to' => $request->reply_to ?? null,
         ]);
 
+        Log::info('Comment created by user ID ' . $userId . ' on training log ID ' . $request->training_log_id);
         
         try {
             if($request->reply_to) { //Om det är ett svar, skicka pushnotis till den som fick svaret
