@@ -20,7 +20,7 @@ return new class extends Migration
         });
 
         Schema::table('training_schedules', function (Blueprint $table) {
-            $table->mediumText('html_content')->change();
+            $table->mediumText('description')->change();
         });
     }
 
@@ -38,7 +38,7 @@ return new class extends Migration
         });
 
         Schema::table('training_schedules', function (Blueprint $table) {
-            $table->text('html_content')->change();
+            $table->text('description')->change();
         });
     }
 };
