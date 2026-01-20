@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeHtmlContentToMediumText20260120 extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -41,4 +41,4 @@ class ChangeHtmlContentToMediumText20260120 extends Migration
             $table->text('html_content')->change();
         });
     }
-}
+};
