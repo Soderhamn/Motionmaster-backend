@@ -83,6 +83,22 @@ class LogCommentController extends Controller
                     'log_id' => $request->training_log_id,
                 ]);
             }
+
+            try {
+                $admins = User::where('role', 'admin')->get();
+                foreach ($admins as $admin) {
+                    $admin->sendNotifications([
+                        'title' => 'Ny kommentar',
+                        'body' => $user->name . ' har kommenterat en träningslogg',
+                        'type' => 'comment',
+                        'log_id' => $request->training_log_id,
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // Om det inte går att skicka pushnotis, logga felet
+                \Log::error('Failed to send notification to admins: ' . $e->getMessage());
+            }
+
         } catch (\Exception $e) {
             // Om det inte går att skicka pushnotis, logga felet
             \Log::error('Failed to send notification: ' . $e->getMessage());

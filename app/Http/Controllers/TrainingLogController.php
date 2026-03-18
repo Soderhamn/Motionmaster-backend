@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\TrainingLog;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class TrainingLogController extends Controller
 {
@@ -42,7 +44,23 @@ class TrainingLogController extends Controller
             //If user_id is not set, set it to the authenticated user, otherwise use the user_id from the request
             if(!$request->user_id) {
                 $request['user_id'] = auth()->user()->id;
+            } else {
+                //Try to notify the user that a new training log has been created for them
+                try {
+                    $user = User::find($request['user_id']);
+                    if($user) {
+                        $user->sendNotifications([
+                            'title' => 'Planerat träningspass skapades',
+                            'body' => 'En administratör har skapat ett planerat träningspass åt dig. Kolla in det i appen!',
+                            'type' => 'planned_training',
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    //Log the error
+                    \Log::error('Failed to send notification for new training log: ' . $e->getMessage());
+                }
             }
+            
             return TrainingLog::create($request->all());
         } else {
             $request['user_id'] = auth()->user()->id;

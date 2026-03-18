@@ -57,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/trainingschedules/{templateId}", [TrainingScheduleController::class, 'createFromTemplate']); //Create a new training schedule from a template
     Route::put("/trainingschedules/{trainingSchedule}", [TrainingScheduleController::class, 'update']); //Update a specific training schedule
     Route::delete("/trainingschedules/{trainingSchedule}", [TrainingScheduleController::class, 'destroy']); //Delete a specific training schedule
+    Route::delete("/trainingschedule/{trainingSchedule}", [TrainingScheduleController::class, 'destroy']); //For miss-spelled endpoint, delete a specific training schedule
     Route::get("/trainingschedules/user/{user}", [TrainingScheduleController::class, 'getUserTrainingSchedules']); //Get all training schedules for a specific user
 
     //Log comment routes
