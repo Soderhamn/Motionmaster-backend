@@ -64,6 +64,7 @@ class TrainingLogController extends Controller
             return TrainingLog::create($request->all());
         } else {
             $request['user_id'] = auth()->user()->id;
+            $user = auth()->user();
 
             //Send push notification to all admins that a user has registered a new training log
             try {
