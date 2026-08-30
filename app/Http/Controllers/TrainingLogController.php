@@ -64,6 +64,21 @@ class TrainingLogController extends Controller
             return TrainingLog::create($request->all());
         } else {
             $request['user_id'] = auth()->user()->id;
+
+            //Send push notification to all admins that a user has registered a new training log
+            try {
+                $admins = User::where('role', 'admin')->get();
+                foreach ($admins as $admin) {
+                        $admin->sendNotifications([
+                            'title' => 'Ny träningslogg registrerad',
+                            'body' => $user->name . ' har registrerat en ny träningslogg. Kolla in den i adminpanelen!',
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    // Om det inte går att skicka pushnotis, logga felet
+                    \Log::error('Failed to send notification to admins: ' . $e->getMessage());
+            }
+
             return TrainingLog::create($request->all());
         }
     }

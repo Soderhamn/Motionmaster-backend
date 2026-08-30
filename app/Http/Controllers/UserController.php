@@ -68,6 +68,21 @@ class UserController
             \Log::error('Failed to send email: ' . $e->getMessage());
         }
 
+        //Send push notification to all admins that a new user has registered
+        try {
+            $admins = User::where('role', 'admin')->get();
+            foreach ($admins as $admin) {
+                    $admin->sendNotifications([
+                        'title' => 'Ny användare registrerad i Motion Master',
+                        'body' => $user->name . ' har registrerat sig',
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // Om det inte går att skicka pushnotis, logga felet
+                \Log::error('Failed to send notification to admins: ' . $e->getMessage());
+        }
+
+
         //Return the user in JSON format
         return response()->json($user);    
     }
@@ -233,6 +248,10 @@ class UserController
             $users = User::whereNotNull('push_token')->get();
             $title = $request->title;
             $body = $request->message;
+            $type = $request->type ?? "";
+
+            //Get ONLY user with ID 
+            $testUser = User::where('id', 1)->first();
 
             //If there is no users, return error
             if($users->count() == 0) {
@@ -240,7 +259,7 @@ class UserController
             }
 
             $client = new Client();
-            foreach($users as $user) {
+            /*foreach($users as $user) {
                 try {
                     $response = $client->request('POST', 'https://exp.host/--/api/v2/push/send', [
                         'headers' => [
@@ -251,12 +270,32 @@ class UserController
                             'to' => $user->push_token,
                             'title' => $title,
                             'body' => $body,
+                            'type' => $type,
                         ]
                     ]);
                 } catch (\Exception $e) {
                     \Log::error('Failed to send notification: ' . $e->getMessage());
                 }
-            }
+            }*/
+
+                //Send push notification to test user only
+                try {
+                    $response = $client->request('POST', 'https://exp.host/--/api/v2/push/send', [
+                        'headers' => [
+                            'Accept' => 'application/json',
+                            'Content-Type' => 'application/json',
+                        ],
+                        'json' => [
+                            'to' => $testUser->push_token,
+                            'title' => $title,
+                            'body' => $body,
+                            'type' => $type,
+                        ]
+                    ]);
+                } catch (\Exception $e) {
+                    \Log::error('Failed to send notification: ' . $e->getMessage());
+                }
+
             return response()->json(['success' => 'Push notifications sent'], 200);
         } else {
             return response()->json(['error' => 'Forbidden'], 403);
