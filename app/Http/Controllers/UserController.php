@@ -289,7 +289,9 @@ class UserController
                             'to' => $testUser->push_token,
                             'title' => $title,
                             'body' => $body,
-                            'type' => $type,
+                            'data' => [
+                                'type' => $type,
+                            ],
                         ]
                     ]);
                 } catch (\Exception $e) {
