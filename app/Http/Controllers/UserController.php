@@ -251,7 +251,7 @@ class UserController
             $type = $request->type ?? "";
 
             //Get ONLY user with ID 
-            $testUser = User::where('id', 1)->first();
+            //$testUser = User::where('id', 1)->first();
 
             //If there is no users, return error
             if($users->count() == 0) {
@@ -259,7 +259,7 @@ class UserController
             }
 
             $client = new Client();
-            /*foreach($users as $user) {
+            foreach($users as $user) {
                 try {
                     $response = $client->request('POST', 'https://exp.host/--/api/v2/push/send', [
                         'headers' => [
@@ -270,16 +270,18 @@ class UserController
                             'to' => $user->push_token,
                             'title' => $title,
                             'body' => $body,
-                            'type' => $type,
+                            'data' => [
+                                'type' => $type,
+                            ],
                         ]
                     ]);
                 } catch (\Exception $e) {
                     \Log::error('Failed to send notification: ' . $e->getMessage());
                 }
-            }*/
+            }
 
                 //Send push notification to test user only
-                try {
+                /*try {
                     $response = $client->request('POST', 'https://exp.host/--/api/v2/push/send', [
                         'headers' => [
                             'Accept' => 'application/json',
@@ -296,7 +298,7 @@ class UserController
                     ]);
                 } catch (\Exception $e) {
                     \Log::error('Failed to send notification: ' . $e->getMessage());
-                }
+                }*/
 
             return response()->json(['success' => 'Push notifications sent'], 200);
         } else {
