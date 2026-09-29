@@ -149,7 +149,7 @@ PROMPT;
                     'Authorization' => 'Bearer ' . config('services.xai.key'),
                 ],
                 'json' => [
-                    'model' => 'grok-4-2-non-reasoning',
+                    'model' => 'grok-4.20-0309-non-reasoning',
                     'instructions' => $system,
                     'input' => [[
                         'role' => 'user',
@@ -197,7 +197,7 @@ PROMPT;
                 'body_preview' => $response ? mb_substr((string) $response->getBody(), 0, 800) : null,
             ]);
 
-            return response()->json(['error' => 'Fel vid anrop till AI-tjänsten. Försök igen senare.'], 502);
+            return response()->json(['error' => 'Fel vid anrop till AI-tjänsten. Försök igen senare.'], 422);
         }
     }
 
