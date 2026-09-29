@@ -149,7 +149,7 @@ PROMPT;
                     'Authorization' => 'Bearer ' . config('services.xai.key'),
                 ],
                 'json' => [
-                    'model' => 'grok-4.20-0309-non-reasoning',
+                    'model' => 'grok-4.3',
                     'instructions' => $system,
                     'input' => [[
                         'role' => 'user',
