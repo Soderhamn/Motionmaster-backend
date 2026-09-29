@@ -78,6 +78,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Calorie Entries routes
     Route::get("/calorieentries", [CalorieEntriesController::class, 'index']); //Get all calorie entries for the authenticated user
     Route::get("/calorieentries/weekly-summary", [CalorieEntriesController::class, 'getWeeklyCalorieSummary']); //Get weekly calorie summary for the authenticated user
+    Route::post("/calorieentries/interpret-food", [CalorieEntriesController::class, 'aiInterpretFood']); //Identify food and estimate calories from an image
     Route::post("/calorieentries", [CalorieEntriesController::class, 'store']); //Create a new calorie entry
     Route::delete("/calorieentries/{calorieEntry}", [CalorieEntriesController::class, 'destroy']); //Delete a specific calorie entry
 
